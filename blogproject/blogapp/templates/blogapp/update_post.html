@@ -1,0 +1,10 @@
+{% extends 'blogapp/base.html'%}
+
+{% block content%}
+<h1>Hello Create View</h1>
+<form method="post" action="">
+    {%csrf_token%}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary">Post</button>
+</form>
+{% endblock%}
