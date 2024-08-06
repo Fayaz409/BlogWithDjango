@@ -1,0 +1,16 @@
+{% extends 'blogapp/base.html'%}
+
+{% block content%}
+{% if user.is_authenticated%}
+<form method="post" action="">
+    {%csrf_token%}
+    <br> <br>
+    <hr>
+    <strong> Are you sure you want to delete "{{post.title}}" </strong> <br> <br>
+    <button type="button" class="btn btn-dark"> <a style="color: aliceblue;" href="{% url 'home'%}">Back</a></button>
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+{%else%}
+<h1>You are not authorized to delete this post please login first</h1>
+{%endif%}
+{% endblock%}

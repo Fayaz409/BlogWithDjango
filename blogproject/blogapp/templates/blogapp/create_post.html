@@ -1,10 +1,14 @@
 {% extends 'blogapp/base.html'%}
 
 {% block content%}
+{% if user.is_authenticated%}
 <h1>Hello Create View</h1>
 <form method="post" action="">
     {%csrf_token%}
     {{form.as_p}}
     <button type="submit" class="btn btn-primary">Post</button>
 </form>
+{%else%}
+<h1>Please Login</h1>
+{%endif%}
 {% endblock%}
