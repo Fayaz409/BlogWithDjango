@@ -5,9 +5,14 @@
 <h1>Hello Create View</h1>
 <form method="post" action="">
     {%csrf_token%}
+    {{form.media}}
     {{form.as_p}}
     <button type="submit" class="btn btn-primary">Post</button>
 </form>
+<script>
+    var name='{{user.id}}'
+    document.getElementById('elder').value=name
+</script>
 {%else%}
 <h1>Please Login</h1>
 {%endif%}

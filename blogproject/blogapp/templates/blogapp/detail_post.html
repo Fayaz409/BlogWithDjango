@@ -1,15 +1,56 @@
 {% extends 'blogapp/base.html' %}
 {% block content %}
+{% block title%}
+{{post.title}}
+{% endblock %}
+
 <h2>
     {{post.title}} 
     {% if user.is_authenticated %}
+        {% if user.id == post.author.id%}
     -- <a href="{%url 'update_post' post.id %}"> [Edit] </a> <a href="{% url 'delete_post' post.id%}">[Delete]</a>
+        {% endif %}
     {% endif %}
 </h2> <br>
 
-<h6>@{{post.author}}</h6>
+<h6>@{{post.author}}</h6> <h6>{{post.post_date}}</h6>
+
 <hr>
 <p>{{post.body|safe}}</p>
 <div  class="btn btn-secondary"> <a style="text-decoration: none; color: rgb(246, 247, 247);" href="{% url 'home' %}">Back</a></div>
+<br> <br>
+{% if user.is_authenticated %}
+<form action="{% url 'like_post' post.id%}" method="post">
+    {% csrf_token %}
+    {% if likes%}
+    {% if liked %} <br>
+    <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary">Unlike</button>
+    {% else %}
+    <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary">Like</button>
+    {% endif %}
+    -- {{total_likes}}
+    {% endif%}
+</form>
+
+
+
+{% endif %}
+{% if user.is_authenticated %}
+        <form action="{% url 'like_post' post.id %}" method="POST">
+            {% csrf_token %}
+            {% if user in post.likes.all %}
+                <button type="submit" class="btn btn-danger">Unlike</button>
+            {% else %}
+                <button type="submit" class="btn btn-primary">Like</button>
+            {% endif %}
+        </form>
+        <p>{{ total_likes }} like(s)</p>
+    {%else%}
+
+        <p>Please log in to like!!! {{ total_likes }} like(s)</p>
+    {% endif %}
+
+
+
 {% endblock %}
 

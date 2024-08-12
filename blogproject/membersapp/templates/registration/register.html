@@ -1,14 +1,20 @@
 {% extends 'blogapp/base.html' %}
 
 {% block content %}
-<h1> The Register Page</h1>
-<br> <br>
-<div class="form-group">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Register">
-    </form>
-
+<div class="d-flex justify-content-center">
+    <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+        <h1 class="text-center">The Register Page</h1>
+        <br>
+        <div class="form-group">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-primary btn-block" value="Register">
+            </form>
+        </div>
+        <div class="text-center mt-3">
+            <p>Already a user? <a href="{% url 'login' %}">Please log in</a></p>
+        </div>
+    </div>
 </div>
 {% endblock content %}

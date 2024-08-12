@@ -1,20 +1,21 @@
 {% extends 'blogapp/base.html'%}
-{% block content%}
-    <h1>
-        Posts
-    </h1>
-    {% for post in object_list%}
-   <a href="{% url 'detail_post' post.id %}"> <h3>{{post.title}} </h3>
-    <h6></a>@{{post.author.first_name}} {{post.author.last_name}}
+{% block content %}
+<h1>Posts</h1>
+{% for post in object_list %}
+    <a href="{% url 'detail_post' post.id %}"><h3>{{ post.title }}</h3></a>
+    <h6>
+        @{{ post.author.first_name }} {{ post.author.last_name }}
         {% if user.is_authenticated %}
-           <a href="{% url 'delete_post' post.id%}">[Delete]</a>
-            
-           <a href="{%url 'update_post' post.id %}"> [Edit] </a>
-         {% endif %}
-          <strong>{{post.post_date}}</strong></h6>
-    <p>{{post.body|slice:"200"|safe}}...</p>
-    <hr>
-    {% endfor %}
-
+            {% if user.id == post.author.id %}
+                <a href="{% url 'delete_post' post.id %}">[Delete]</a>
+                <a href="{% url 'update_post' post.id %}">[Edit]</a>
+            {% endif %}
+        {% endif %}
+        <br>
+        <p>Category: <a href="{% url 'category' post.category %}" style="text-decoration: none">{{ post.category }}</a></p>
+    </h6>
+    <p>{{ post.body|slice:"200"|safe }}...</p>
+    
+    
+{% endfor %}
 {% endblock %}
-

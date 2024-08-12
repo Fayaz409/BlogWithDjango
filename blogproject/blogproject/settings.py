@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blogapp',
     'membersapp',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +62,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blogapp.context_processors.categories_processor',
             ],
         },
     },
